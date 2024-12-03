@@ -1,6 +1,12 @@
 # Binge Watch
 - Create React App
 - configured TailwindCSS
+- Header
+- Routing of App
+- Login Form
+- Signup up Form
+- Form Validation
+- useRef Hook
 
 # Features
 - Login/Signup
