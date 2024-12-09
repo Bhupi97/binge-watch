@@ -7,6 +7,15 @@
 - Signup up Form
 - Form Validation
 - useRef Hook
+- Firebase Setup
+- Deploying our app to production
+- Create Signup user account
+- Implement Sign in user Api
+- Created Redux store with userSlice
+- Implemented Sign out
+- Update profile
+- Fetch from TMDB Movies
+
 
 # Features
 - Login/Signup
@@ -24,3 +33,14 @@
     - Search bar
     - Movie Suggestions
 
+
+
+*************************
+Steps to deploy app:-
+prerequisite :- install firebase - npm install firebase
+
+1. Install firebase CLI - 'npm install -g firebase-tools'
+2. Firebase Login - 'firebase login'
+3. Initialize Firebase - 'firebase init', then select hosting
+4. Deploy command - 'firebase deploy'
+**************************
