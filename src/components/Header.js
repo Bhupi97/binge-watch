@@ -1,25 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../media/logo.png';
 import userIcon from '../media/userIcon.webp';
-import { signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, removeUser } from '../utils/userSlice';
 
 const Header = () => {
    
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector(store => store.user);
 
   const handleSignout = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
-      navigate("/");
     }).catch((error) => {
       // An error happened.
       navigate("/error");
     })
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const {uid, email, displayName, photoURL} = user;
+            dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL: photoURL}));
+            navigate("/browse");
+            
+        } else {
+            dispatch(removeUser());
+            navigate("/")
+        }
+    });
+
+    // unsubsribe when component unmounts : good practice
+    return () => unsubscribe();
+    }, []);
 
   return (
     <div className='absolute bg-gradient-to-b from-gray-800 z-10 w-full flex justify-between'>
