@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import logo from '../media/logo.png';
-import userIcon from '../media/userIcon.webp';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
+import { toggleGptSearchView } from '../utils/gptSlice';
 
 const Header = () => {
    
@@ -39,11 +39,17 @@ const Header = () => {
     return () => unsubscribe();
     }, []);
 
+  const handleGptSearchClick = () => {
+    // Toggle GPT Search
+     dispatch(toggleGptSearchView());
+  }
+
   return (
     <div className='absolute bg-gradient-to-b from-gray-800 z-10 w-full flex justify-between'>
       <img className='px-4 py-2 h-20' src={logo} alt='logo'/>
       
-      {user && (<div className='p-2 mx-2 flex'>
+      {user && (<div className='p-2 mx-2 my-2 flex'>
+        <button className='bg-purple-700 rounded-lg px-4 mx-2 text-white py-2' onClick={handleGptSearchClick}>GPT Search</button>
         <img className='h-14' src={user?.photoURL} alt="userIcon"/>
         <button className='font-bold text-white' onClick={handleSignout}>(Sign out)</button>
       </div>
