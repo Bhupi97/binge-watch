@@ -59,7 +59,7 @@ const Header = () => {
       
       {user && (<div className='p-2 mx-2 my-2 flex'>
         {gptSearchView && <select className='text-white text-lg rounded-lg bg-blue-600' onChange={handleLanguageChange}>
-          {SUPPORTED_LANGUAGES.map(lang => <option value={lang.identifier}>{lang.name}</option>)}
+          {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
         </select>}
         <button className='bg-purple-700 rounded-lg px-4 mx-2 text-white py-2' onClick={handleGptSearchClick}>{gptSearchView ? "Home" : "GPT Search"}</button>
         <img className='h-14' src={user?.photoURL} alt="userIcon"/>

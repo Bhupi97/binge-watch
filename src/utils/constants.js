@@ -20,3 +20,5 @@ export const SUPPORTED_LANGUAGES = [
     { identifier: "German", name: "German" },
     { identifier: "Italian", name: "Italian" },
 ]
+
+export const OPENAI_KEY = "";  // OpenAi API key here
