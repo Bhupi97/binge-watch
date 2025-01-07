@@ -57,12 +57,12 @@ const Header = () => {
     <div className='absolute w-screen px-8 py-2 bg-gradient-to-b from-gray-800 z-10 flex justify-between flex-col md:flex-row'>
       <img className='px-4 py-2 h-20 mx-auto md:mx-0' src={logo} alt='logo'/>
       
-      {user && (<div className='p-2 mx-2 my-2 flex'>
+      {user && (<div className='p-2 mx-2 my-2 flex justify-between'>
         {gptSearchView && <select className='text-white text-lg rounded-lg bg-blue-600' onChange={handleLanguageChange}>
           {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
         </select>}
         <button className='bg-purple-700 rounded-lg px-4 mx-2 text-white py-2' onClick={handleGptSearchClick}>{gptSearchView ? "Home" : "GPT Search"}</button>
-        <img className='h-14 rounded-lg' src={user?.photoURL} alt="userIcon"/>
+        <img className='h-14 rounded-lg hidden md:block' src={user?.photoURL} alt="userIcon"/>
         <button className='font-bold text-white' onClick={handleSignout}>(Sign out)</button>
       </div>
       )}

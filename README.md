@@ -35,6 +35,14 @@
 - GPT Search Page
 - GPT Search Bar
 - Multiligual Feature
+- Used Open AI API to search movies
+- fetched movie suggestions from TMDB
+- Created GPT slice and added movie suggestions to it
+- Reused movie List component to make movie suggestion container
+- Implemented Memoization to improve performance
+- created .env file and added to gitignore
+
+
 
 
 
