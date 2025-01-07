@@ -1,18 +1,22 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import lang from "../utils/langConstants";
 import { useRef } from "react";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
 
     const langKey = useSelector(store => store.config.lang);
     const searchText = useRef(null);
+    const dispatch = useDispatch();
 
     const searchMovieTMDB = async (movieName) => {
         // Search movie in TMDB
-        const data = await fetch('https://api.themoviedb.org/3/search/movie?query='+movieName+'&include_adult=false&language=en-US&page=1', API_OPTIONS)
+        const data = await fetch('https://api.themoviedb.org/3/search/movie?query='+movieName+'&include_adult=false&language=en-US&page=1', API_OPTIONS);
+        const json = await data.json();
 
+        return json.results;
     }
 
     const handleGptSearch = async () => {
@@ -32,6 +36,11 @@ const GptSearchBar = () => {
           }
           console.log(gptResults.choices?.[0]?.message?.content);
           const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
+          const promiseArray = gptMovies.map(movie => searchMovieTMDB(movie));
+          const tmdbResults = await Promise.all(promiseArray);
+          console.log(tmdbResults);
+          
+          dispatch(addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults})); // To add multiple values in single action.
 
     };
 
