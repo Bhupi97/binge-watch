@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addTrailerVideo } from "../utils/moviesSlice";
+import { addCurrentTrailerVideo } from "../utils/moviesSlice";
 import { useEffect } from "react";
 
-const useMovieTrailer = (movieId) => {
+const useCurrentMovieTrailer = (movieId) => {
 
     // fetching trailer and updating store
     const dispatch = useDispatch();
 
-    const trailerVideoInStore = useSelector(store => store.movies.trailerVideo);
+    const currentTrailerVideoInStore = useSelector(store => store.movies.currentTrailerVideo);
 
     const getVideoInfo = async () => {
+        if (!movieId) return;
 
         const data = await fetch('https://api.themoviedb.org/3/movie/' + movieId + '/videos?language=en-US', API_OPTIONS)
         const json = await data.json();
@@ -18,13 +19,13 @@ const useMovieTrailer = (movieId) => {
         const trailers = json.results.filter((video)=> video.type === "Trailer");
         const trailer = trailers.length ? trailers[0] : json.results[0];
         // currentTrailerVideo ? dispatch(addCurrentTrailerVideo(trailer)) : dispatch(addTrailerVideo(trailer));
-        dispatch(addTrailerVideo(trailer));
+        dispatch(addCurrentTrailerVideo(trailer));
     };
 
     useEffect(() => {
-        !trailerVideoInStore && getVideoInfo(); // Memoization
+        !currentTrailerVideoInStore && getVideoInfo(); // Memoization
     }, []);
 
 };
 
-export default useMovieTrailer;
+export default useCurrentMovieTrailer;
