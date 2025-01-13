@@ -4,11 +4,11 @@ import { addCurrentTrailerVideo } from "../utils/moviesSlice";
 import { useEffect } from "react";
 
 const useCurrentMovieTrailer = (movieId) => {
-
     // fetching trailer and updating store
     const dispatch = useDispatch();
 
-    const currentTrailerVideoInStore = useSelector(store => store.movies.currentTrailerVideo);
+    // const currentTrailerVideoInStore = useSelector(store => store.movies?.currentTrailerVideo);
+    // console.log(currentTrailerVideoInStore?.key);
 
     const getVideoInfo = async () => {
         if (!movieId) return;
@@ -18,13 +18,21 @@ const useCurrentMovieTrailer = (movieId) => {
 
         const trailers = json.results.filter((video)=> video.type === "Trailer");
         const trailer = trailers.length ? trailers[0] : json.results[0];
-        // currentTrailerVideo ? dispatch(addCurrentTrailerVideo(trailer)) : dispatch(addTrailerVideo(trailer));
         dispatch(addCurrentTrailerVideo(trailer));
+        // if (currentTrailerVideoInStore?.key != trailer?.key) {
+        //     console.log("Current trailer", currentTrailerVideoInStore?.key);
+        //     console.log("trailer", trailer?.key);
+        //     dispatch(addCurrentTrailerVideo(trailer));
+        // }
+        // dispatch(addCurrentTrailerVideo(trailer));
     };
 
     useEffect(() => {
-        !currentTrailerVideoInStore && getVideoInfo(); // Memoization
+        // console.log("Current trailer", currentTrailerVideoInStore?.key);
+        getVideoInfo();
     }, []);
+
+    
 
 };
 
