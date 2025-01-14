@@ -5,6 +5,7 @@ import { IMG_CDN } from "../utils/constants";
 // import useCurrentMovieTrailer from "../hooks/useCurrentMovieTrailer";
 import { useEffect, useState } from "react";
 import PlayCurrentTrailer from "./PlayCurrentTrailer";
+import { addCurrentTrailerVideo } from "../utils/moviesSlice";
 
 const MovieCard = ({ movieId, posterPath }) => {
   const [ currentMovieId, setCurrentMovieId ] = useState(null);
@@ -25,6 +26,7 @@ const MovieCard = ({ movieId, posterPath }) => {
         onClick={() => setCurrentMovieId(movieId)}/>
         
         {currentMovieId && <PlayCurrentTrailer movieId={currentMovieId}/>}
+        {/* {addCurrentTrailerVideo(null)} */}
     </div>
   )
 };
