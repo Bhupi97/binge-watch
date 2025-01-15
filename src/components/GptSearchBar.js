@@ -34,11 +34,11 @@ const GptSearchBar = () => {
           if (!gptResults.choices) {
             // Error message here
           }
-          console.log(gptResults.choices?.[0]?.message?.content);
+          
           const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
           const promiseArray = gptMovies.map(movie => searchMovieTMDB(movie));
           const tmdbResults = await Promise.all(promiseArray);
-          console.log(tmdbResults);
+          
           
           dispatch(addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults})); // To add multiple values in single action.
 

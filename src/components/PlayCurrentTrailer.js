@@ -1,31 +1,12 @@
-import React, { useEffect, useRef } from 'react'
-// import useCurrentMovieTrailer from '../hooks/useCurrentMovieTrailer';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_OPTIONS, YOUTUBE_VIDEO_URL } from '../utils/constants';
 import { addCurrentTrailerVideo } from '../utils/moviesSlice';
 
 const PlayCurrentTrailer = ({ movieId }) => {
-    // console.log("Click reached here for movieId",movieId);
-    // console.log("Click called useCurrentMovieTrailer hook",movieId);
-    // const latestMovieIdRef = useRef(movieId);
-    console.log(movieId);
+
     const dispatch = useDispatch();
     const { trailerKey, currentMovieId } = useSelector(store => store.movies);
-    // useCurrentMovieTrailer(movieId);
-
-    // useEffect(() => {
-    //   latestMovieIdRef.current = movieId;
-    // }, [movieId]);
-
-    // useEffect(() => {
-    //   if (currentTrailerVideoInStore?.key) {
-    //     // console.log
-    //     console.log(currentTrailerVideoInStore?.key);
-    //     const videoUrl = YOUTUBE_VIDEO_URL + currentTrailerVideoInStore?.key + "?autoplay=1";
-    //     window.open(videoUrl, '_blank');
-    //   }
-    // }, [currentTrailerVideoInStore?.key, movieId]);
-
 
     const getVideoInfo = async () => {
       if (!movieId) return;
@@ -39,26 +20,25 @@ const PlayCurrentTrailer = ({ movieId }) => {
     };
   
     useEffect(() => {
-      // console.log(currentTrailerVideoInStore);
       if (movieId) {
         getVideoInfo();
       }}, [movieId]);
 
+
     useEffect(() => {
       if (trailerKey && movieId === currentMovieId) {
-        console.log(currentMovieId);
-        const videoUrl = YOUTUBE_VIDEO_URL + trailerKey + "?autoplay=1";
-        window.open(videoUrl, '_blank');
+        const videoUrl = `${YOUTUBE_VIDEO_URL}${trailerKey}?autoplay=1`;
+        const windowFeatures = `
+        left=${window.innerWidth/4}, 
+        top=${window.innerHeight/4}, 
+        width=${window.innerWidth/2}, 
+        height=${window.innerHeight/2}`;
+        window.open(videoUrl, '_blank', windowFeatures);   
       }
 
     }, [movieId === currentMovieId, trailerKey]);
      
-  
-    
-    
-  return (
-    <div></div>
-  )
+  return null;
 }
 
 export default PlayCurrentTrailer;

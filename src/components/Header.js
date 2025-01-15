@@ -55,7 +55,7 @@ const Header = () => {
 
   return ( // Default css for mobile sm(devices greater than small) for tabs and md(devices greater than medium) is for desktop
     <div className='absolute w-screen px-8 py-2 bg-gradient-to-b from-gray-800 z-10 flex justify-between flex-col md:flex-row'>
-      <img className='px-4 py-2 h-20 mx-auto md:mx-0' src={logo} alt='logo'/>
+      <img className='px-4 py-2 h-20 mx-auto md:mx-0 hover:cursor-pointer' src={logo} alt='logo' onClick={handleGptSearchClick}/>
       
       {user && (<div className='p-2 mx-2 my-2 flex justify-between'>
         {gptSearchView && <select className='text-white text-lg rounded-lg bg-blue-600' onChange={handleLanguageChange}>
